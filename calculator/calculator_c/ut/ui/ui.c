@@ -1,0 +1,87 @@
+#include "ui.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int get_user_input(char *buffer, size_t size) {
+    if (buffer == NULL || size == 0) {
+        return INPUT_ERROR;
+    }
+
+    printf(">>> ");
+    fflush(stdout);
+
+    if (fgets(buffer, (int)size, stdin) == NULL) {
+        buffer[0] = '\0';
+        if (feof(stdin)) return INPUT_EOF;
+        return INPUT_ERROR;
+    }
+
+    size_t len = strlen(buffer);
+    int truncated = 0;
+
+    // 如果最后没有换行，说明输入被截断，需丢弃剩余字符
+    if (len == size - 1 && buffer[len-1] != '\n') {
+        int c;
+        truncated = 1;
+        while ((c = getchar()) != '\n' && c != EOF) { /* 丢弃 */ }
+    }
+
+    // 去除末尾换行或回车
+    len = strlen(buffer);
+    if (len > 0 && buffer[len-1] == '\n') {
+        buffer[len-1] = '\0';
+        len--;
+    }
+
+    // 去除首尾空白
+    size_t start = 0;
+    while (start < len && isspace((unsigned char)buffer[start])) start++;
+    size_t end = len;
+    while (end > start && isspace((unsigned char)buffer[end-1])) end--;
+
+    if (start > 0 || end < len) {
+        size_t newlen = end - start;
+        memmove(buffer, buffer + start, newlen);
+        buffer[newlen] = '\0';
+    }
+
+    return truncated ? INPUT_TRUNC : INPUT_OK;
+}
+
+char *get_user_input_dynamic(void) {
+    printf(">>> ");
+    fflush(stdout);
+
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t nread = getline(&line, &len, stdin);
+    if (nread == -1) {
+        free(line);
+        return NULL; // EOF 或错误
+    }
+
+    // 去掉末尾换行
+    if (nread > 0 && line[nread-1] == '\n') {
+        line[nread-1] = '\0';
+        nread--;
+    }
+
+    // 裁剪首尾空白
+    size_t start = 0;
+    while (start < (size_t)nread && isspace((unsigned char)line[start])) start++;
+    size_t end = nread;
+    while (end > start && isspace((unsigned char)line[end-1])) end--;
+
+    size_t newlen = end - start;
+    if (start > 0 || newlen < (size_t)nread) {
+        memmove(line, line + start, newlen);
+        line[newlen] = '\0';
+        // 可选：realloc 缩小内存
+        char *shrunk = realloc(line, newlen + 1);
+        if (shrunk) line = shrunk;
+    }
+
+    return line;
+}
