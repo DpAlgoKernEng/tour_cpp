@@ -22,10 +22,10 @@ int main(void) {
 
     /* 1) 普通输入 + 去除首尾空白 */
     {
-        const char *data = "   hello world   \n";
+        char data[] = "   hello world   \n";
         char buf[256];
         FILE *saved = stdin;
-        FILE *mem = fmemopen((void*)data, strlen(data), "r");
+        FILE *mem = fmemopen(data, strlen(data) + 1, "r");
         stdin = mem;
 
         int ret = get_user_input(buf, sizeof(buf));
@@ -41,10 +41,10 @@ int main(void) {
 
     /* 2) 截断输入（超长） */
     {
-        const char *data = "this_is_a_very_long_line_without_newline\n";
+        char data[] = "this_is_a_very_long_line_without_newline\n";
         char buf[8]; /* 故意很小以触发截断 */
         FILE *saved = stdin;
-        FILE *mem = fmemopen((void*)data, strlen(data), "r");
+        FILE *mem = fmemopen(data, strlen(data) + 1, "r");
         stdin = mem;
 
         int ret = get_user_input(buf, sizeof(buf));
@@ -59,10 +59,11 @@ int main(void) {
 
     /* 3) EOF 情况 */
     {
-        const char *data = "";
+
+        /* 使用 /dev/null 来表示 EOF，这样更可靠 */
         char buf[16];
         FILE *saved = stdin;
-        FILE *mem = fmemopen((void*)data, strlen(data), "r");
+        FILE *mem = fopen("/dev/null", "r");
         stdin = mem;
 
         int ret = get_user_input(buf, sizeof(buf));

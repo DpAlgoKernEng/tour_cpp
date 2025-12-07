@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <limits.h>
 
 int get_user_input(char *buffer, size_t size) {
     if (buffer == NULL || size == 0) {
@@ -11,6 +12,8 @@ int get_user_input(char *buffer, size_t size) {
 
     printf(">>> ");
     fflush(stdout);
+
+    if (size > (size_t)INT_MAX) return INPUT_ERROR;
 
     if (fgets(buffer, (int)size, stdin) == NULL) {
         buffer[0] = '\0';
@@ -22,7 +25,7 @@ int get_user_input(char *buffer, size_t size) {
     int truncated = 0;
 
     // 如果最后没有换行，说明输入被截断，需丢弃剩余字符
-    if (len == size - 1 && buffer[len-1] != '\n') {
+    if (size > 1 && len == size - 1 && buffer[len-1] != '\n') {
         int c;
         truncated = 1;
         while ((c = getchar()) != '\n' && c != EOF) { /* 丢弃 */ }

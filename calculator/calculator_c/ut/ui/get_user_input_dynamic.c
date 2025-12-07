@@ -23,9 +23,9 @@ int main(void) {
 
     /* 1) 普通输入 + 去首尾空白 */
     {
-        const char *data = "   sin(pi/2)   \n";
+        char data[] = "   sin(pi/2)   \n";
         FILE *saved = stdin;
-        FILE *mem = fmemopen((void*)data, strlen(data), "r");
+        FILE *mem = fmemopen(data, strlen(data) + 1, "r");
         stdin = mem;
 
         char *s = get_user_input_dynamic();
@@ -46,9 +46,8 @@ int main(void) {
 
     /* 2) EOF 情况 */
     {
-        const char *data = "";
         FILE *saved = stdin;
-        FILE *mem = fmemopen((void*)data, strlen(data), "r");
+        FILE *mem = fopen("/dev/null", "r");
         stdin = mem;
 
         char *s = get_user_input_dynamic();
