@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <limits.h>
 
+
 int get_user_input(char *buffer, size_t size) {
     if (buffer == NULL || size == 0) {
         return INPUT_ERROR;
@@ -87,4 +88,55 @@ char *get_user_input_dynamic(void) {
     }
 
     return line;
+}
+
+char *custom_getline(char **lineptr, size_t *n) {
+    // 参数有效性检查
+    if (lineptr == NULL || n == NULL) {
+        return NULL;
+    }
+
+    size_t size = *n;
+    size_t len = 0;
+    int c;
+    char *buffer = *lineptr;
+
+    // 初始分配或检查现有缓冲区
+    if (buffer == NULL || size < INITIAL_SIZE) {
+        size = INITIAL_SIZE;
+        buffer = (char*)malloc(size * sizeof(char));
+        if (buffer == NULL) {
+            return NULL;  // 分配失败
+        }
+    }
+
+    // 逐字符读取输入
+    while ((c = getchar()) != EOF && c != '\n') {
+        // 检查缓冲区空间
+        if (len + 1 >= size) {
+            size *= 2;  // 双倍扩展策略
+            char *new_buffer = (char*)realloc(buffer, size);
+            if (new_buffer == NULL) {
+                free(buffer);
+                return NULL;  // 扩展失败
+            }
+            buffer = new_buffer;
+        }
+        buffer[len++] = (char)c;
+    }
+
+    // 处理EOF且未读取字符的情况
+    if (c == EOF && len == 0) {
+        free(buffer);
+        return NULL;
+    }
+
+    // 添加终止符
+    buffer[len] = '\0';
+
+    // 更新输出参数
+    *lineptr = buffer;
+    *n = size;
+
+    return buffer;  // 返回成功读取的行（包含换行符或终止符）
 }
