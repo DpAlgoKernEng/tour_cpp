@@ -24,7 +24,7 @@
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "C_Cpp.intelliSenseEngine": "Disabled",
     "C_Cpp.autocomplete": "Disabled",
-    "clangd.path": "/usr/lib/llvm-19/bin/clangd",
+    "clangd.path": "/usr/bin/clangd",
     "clangd.arguments": [
         "--log=verbose",
         "--pretty",
