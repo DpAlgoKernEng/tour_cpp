@@ -42,3 +42,8 @@
 
 # build directories
 build_cmake/
+
+# target directories
+target/
+
+
