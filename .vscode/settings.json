@@ -13,6 +13,7 @@
     
     "github.gitProtocol": "ssh",
     "remote.downloadExtensionsLocally": true,
+
     "makefile.configureOnOpen": false,
     "cmake.generator": "Unix Makefiles",
     "cmake.sourceDirectory": "${workspaceFolder}/calculator",
@@ -45,6 +46,8 @@
         "--fallback-style=file:${workspaceFolder}/.clang-format",
         "--fallback-style=LLVM",
     ],
+
+    "rust-analyzer.linkedProjects": ["${workspaceFolder}/rust/guessing_game/Cargo.toml"],
 
     "doxdocgen.c.triggerSequence": "/**",
     "doxdocgen.c.firstLine": "/**",
