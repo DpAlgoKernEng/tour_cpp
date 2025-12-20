@@ -17,4 +17,5 @@ macro_rules! select_game {
 
 fn main() {
     select_game!(2);
+    select_game!(1);
 }
