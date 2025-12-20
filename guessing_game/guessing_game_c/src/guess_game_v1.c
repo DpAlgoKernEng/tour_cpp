@@ -16,9 +16,11 @@ int start_guessing_game_v1() {
     int secret_number = 1 + (rand() % 10);
 
     while (user_guess != secret_number) {
+        // 提示用户输入猜测
         printf("Enter your guess: ");
         scanf("%d", &user_guess);
 
+        // 检查猜测
         if (user_guess < secret_number) {
             printf("Too low! Try again.\n");
         } else if (user_guess > secret_number) {

@@ -1,6 +1,7 @@
 # 比较两种验证数字字符串的方法
 
 ## 简介
+
 在C语言中，验证用户输入是否为有效的整数字符串是一个常见任务。本文将比较两种常用的方法：使用标准库函数 `strtol()` 结合 `endptr` 检查，以及手动实现一个函数来验证字符串是否只包含数字字符。
 
 ## 使用 `strtol()` 和 `endptr` 检查
@@ -21,19 +22,13 @@ if (endptr == input || *endptr != '\0') {
 
 ```c
 bool is_numeric_string(const char* str) {
-    if (str == NULL || *str == '\0') {
-        return false;
-    }
+    if (str == NULL || *str == '\0') { return false; }
     
     // 跳过前导空格
-    while (isspace((unsigned char)*str)) {
-        str++;
-    }
+    while (isspace((unsigned char)*str)) { str++; }
     
     // 检查符号
-    if (*str == '+' || *str == '-') {
-        str++;
-    }
+    if (*str == '+' || *str == '-') { str++; }
     
     bool has_digit = false;
     while (*str != '\0') {
@@ -141,24 +136,16 @@ int parse_integer(const char *str, int *result) {
     val = strtol(str, &endptr, 10);
   
     // 检查是否完全没有转换
-    if (endptr == str) {
-        return 0;  // 无效输入
-    }
+    if (endptr == str) { return 0; } // 无效输入
   
     // 跳过可能的空白字符
-    while (isspace((unsigned char)*endptr)) {
-        endptr++;
-    }
+    while (isspace((unsigned char)*endptr)) { endptr++; }
   
     // 检查是否完全消耗了字符串
-    if (*endptr != '\0') {
-        return 0;  // 后面有非法字符
-    }
+    if (*endptr != '\0') { return 0; } // 后面有非法字符
   
     // 检查溢出
-    if (errno == ERANGE || val > INT_MAX || val < INT_MIN) {
-        return -1;  // 溢出
-    }
+    if (errno == ERANGE || val > INT_MAX || val < INT_MIN) { return -1; } // 溢出
   
     *result = (int)val;
     return 1;  // 成功
