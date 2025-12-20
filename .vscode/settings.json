@@ -16,8 +16,8 @@
 
     "makefile.configureOnOpen": false,
     "cmake.generator": "Unix Makefiles",
-    "cmake.sourceDirectory": "${workspaceFolder}/calculator",
-    "cmake.buildDirectory": "${workspaceFolder}/calculator/build_cmake",
+    "cmake.sourceDirectory": "${workspaceFolder}/guessing_game",
+    "cmake.buildDirectory": "${workspaceFolder}/guessing_game/build_cmake",
 
     "clangd.detectExtensionConflicts": true,
     "clangd.fallbackFlags": [],
@@ -38,7 +38,7 @@
         "-j=2",
         "--pch-storage=memory",
         "--function-arg-placeholders=false",
-        "--compile-commands-dir=${workspaceFolder}/calculator/build_cmake",
+        "--compile-commands-dir=${workspaceFolder}/guessing_game/build_cmake",
         "--clang-tidy",
         "--clang-tidy-checks=file:${workspaceFolder}/.clang-tidy",
         "--clang-tidy-checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,google-*,modernize-*,performance-*,portability-*,readability-*",
