@@ -1,0 +1,10 @@
+# 定义子模块（Submodule）的仓库路径和本地映射目录，通常由 git submodule add 命令自动生成
+# git submodule update --init --recursive
+
+[submodule "thridparty/general_purpose/boost"]
+	path = thridparty/general_purpose/boost
+	url = https://github.com/boostorg/boost.git
+
+[submodule "thridparty/cmdline_parser/gflags"]
+	path = thridparty/cmdline_parser/gflags
+	url = https://github.com/gflags/gflags.git
