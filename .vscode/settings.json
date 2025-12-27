@@ -190,6 +190,7 @@
         "fnvhash",
         "fnvstr",
         "hashv",
+        "ifndef",
         "jemalloc",
         "jenhash",
         "jenstr",
