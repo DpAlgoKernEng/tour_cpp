@@ -27,21 +27,21 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finput-charset=UTF-8 -fexec-charset=UTF-8")
 # include(cmake/get_boost.cmake)
 
 # 三方库代码
-# add_subdirectory(thridparty/log_format/log.c)           # 添加logc库的子目录
-# add_subdirectory(thridparty/cmdline_parser/gflags)      # 添加gflags库的子目录
-# add_subdirectory(thridparty/general_purpose/boost)      # 添加boost库的子目录
+# add_subdirectory(thirdparty/log_format/log.c)           # 添加logc库的子目录
+# add_subdirectory(thirdparty/cmdline_parser/gflags)      # 添加gflags库的子目录
+# add_subdirectory(thirdparty/general_purpose/boost)      # 添加boost库的子目录
 
 ## 设置公共头文件路径
-#set(PROJECT_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/thridparty)
+#set(PROJECT_PUBLIC_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/thirdparty)
 ## 添加第三方库路径
 #list(APPEND THIRDPARTY_INCLUDE_DIRS
-#        ${CMAKE_SOURCE_DIR}/thridparty/cmdline_parser
-#        ${CMAKE_SOURCE_DIR}/thridparty/log_format
-#        ${CMAKE_SOURCE_DIR}/thridparty/general_purpose/boost
+#        ${CMAKE_SOURCE_DIR}/thirdparty/cmdline_parser
+#        ${CMAKE_SOURCE_DIR}/thirdparty/log_format
+#        ${CMAKE_SOURCE_DIR}/thirdparty/general_purpose/boost
 #)
 ## 创建接口库 (统一访问点)
-#add_library(thridparty_warp INTERFACE)
-#target_include_directories(thridparty_warp INTERFACE
+#add_library(thirdparty_warp INTERFACE)
+#target_include_directories(thirdparty_warp INTERFACE
 #        $<BUILD_INTERFACE:${PROJECT_PUBLIC_INCLUDE_DIR}>  # 项目公共头文件
 #        $<BUILD_INTERFACE:${THIRDPARTY_INCLUDE_DIRS}>     # 第三方头文件
 #)
@@ -56,4 +56,4 @@ add_subdirectory(programs/calculator_qt)               # 添加源代码的子�
 
 # 本地样例代码
 # add_subdirectory(tests/examples/knowledge_cpp)
-# add_subdirectory(tests/examples/thridparty)
+# add_subdirectory(tests/examples/thirdparty)
