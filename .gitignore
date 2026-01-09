@@ -47,3 +47,4 @@ build_cmake/
 target/
 *.lock
 
+.DS_Store
